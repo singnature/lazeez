@@ -1,83 +1,43 @@
-const http = require("http");
-const url = require("url");
 const fs = require("fs");
+const bodyParser = require("body-parser");
+const express = require("express");
+const app = express();
 
-const server = http.createServer((req, res) => {
-  const { pathname } = url.parse(req.url, true);
+app.use(bodyParser.json());
+app.use(express.static("public"));
 
-  if (pathname === "/") {
-    fs.readFile("index.html", (err, data) => {
+app.get("/", (req, res) => {
+  fs.readFile("index.html", (err, data) => {
+    if (err) {
+      res.writeHead(500, { "Content-Type": "text/plain" });
+      res.end("Internal Server Error");
+      return;
+    }
+
+    res.writeHead(200, { "Content-Type": "text/html" });
+    res.end(data);
+  });
+});
+
+app.post("/submit-form", (req, res) => {
+  try {
+    fs.readFile("orders.json", "utf8", (err, data) => {
       if (err) {
-        res.writeHead(500, { "Content-Type": "text/plain" });
-        res.end("Internal Server Error");
-        return;
+        throw new Error("Can't read file");
       }
+      const oldData = data ? JSON.parse(data) : [];
+      oldData.push(req.body);
 
-      res.writeHead(200, { "Content-Type": "text/html" });
-      res.end(data);
-    });
-  } else if (pathname === "/lazeez.css") {
-    fs.readFile("lazeez.css", (err, data) => {
-      if (err) {
-        res.writeHead(500, { "Content-Type": "text/plain" });
-        res.end("Internal Server Error");
-        return;
-      }
-
-      res.writeHead(200, { "Content-Type": "text/css" });
-      res.end(data);
-    });
-  } else if (pathname === "/lazeez.js") {
-    fs.readFile("lazeez.js", (err, data) => {
-      if (err) {
-        res.writeHead(500, { "Content-Type": "text/plain" });
-        res.end("Internal Server Error");
-        return;
-      } else if (pathname.startsWith("/imgs/")) {
-        const imgPath = pathname.slice(6); // remove '/imgs/' from the path
-        const ext = imgPath.split(".").pop(); // get the file extension
-        const contentType = `image/${ext}`;
-
-        fs.readFile(`imgs/${imgPath}`, (err, data) => {
-          if (err) {
-            res.writeHead(404, { "Content-Type": "text/plain" });
-            res.end("Image not found");
-          } else {
-            res.writeHead(200, { "Content-Type": contentType });
-            res.end(data);
-          }
-        });
-      }
-
-      res.writeHead(200, { "Content-Type": "text/javascript" });
-      res.end(data);
-    });
-  } else if (pathname === "/submit-form") {
-    let body = "";
-
-    req.on("data", (chunk) => {
-      body += chunk.toString();
-    });
-
-    req.on("end", () => {
-      console.log("Raw body:", body);
-
-      try {
-        const { name, phone, item } = JSON.parse(body);
-        console.log("Parsed body:", { name, phone, item });
-
-        // Save the data to a JSON file
-        const data = JSON.stringify({ name, phone, item });
-        fs.writeFile("orders.json", data, (err) => {
-          if (err) {
-            console.log(err);
-            res.statusCode = 500;
-            res.end("Error saving data");
-          } else {
-            console.log("Data saved successfully");
-            res.statusCode = 200;
-            res.setHeader("Content-Type", "text/html");
-            res.end(`
+      fs.writeFile("orders.json", JSON.stringify(oldData), (err) => {
+        if (err) {
+          console.log(err);
+          res.statusCode = 500;
+          res.end("Error saving data");
+        } else {
+          console.log("Data saved successfully");
+          res.statusCode = 200;
+          res.setHeader("Content-Type", "text/html");
+          res.end(`
               <html>
                 <head>
                   <title>Form submitted</title>
@@ -90,39 +50,41 @@ const server = http.createServer((req, res) => {
                 </body>
               </html>
             `);
-          }
-        });
-      } catch (err) {
-        console.error(err);
-        res.statusCode = 400;
-        res.end("Invalid JSON data");
-      }
+        }
+      });
     });
-  } else if (pathname === "/orders") {
-    // Code for showing all the orders
-    fs.readFile("orders.json", (err, data) => {
-      if (err) {
-        console.error(err);
-        res.statusCode = 500;
-        res.end("Error reading data");
-        return;
-      }
+  } catch (err) {
+    console.error(err);
+    res.statusCode = 400;
+    res.end("Invalid JSON data");
+  }
+});
 
-      const orders = JSON.parse(data);
-      const orderList = orders
-        .map((order) => {
-          return `
+app.get("/orders", (req, res) => {
+  // Code for showing all the orders
+  fs.readFile("orders.json", (err, data) => {
+    if (err) {
+      console.error(err);
+      res.statusCode = 500;
+      res.end("Error reading data");
+      return;
+    }
+
+    const orders = JSON.parse(data);
+    const orderList = orders
+      .map((order) => {
+        return `
           <tr>
             <td>${order.name}</td>
             <td>${order.phone}</td>
             <td>${order.item}</td>
           </tr>
         `;
-        })
-        .join("");
+      })
+      .join("");
 
-      res.writeHead(200, { "Content-Type": "text/html" });
-      res.end(`
+    res.writeHead(200, { "Content-Type": "text/html" });
+    res.end(`
         <html>
           <head>
             <title>Orders</title>
@@ -143,12 +105,13 @@ const server = http.createServer((req, res) => {
           </body>
         </html>
       `);
-    });
-  } else {
-    res.writeHead(404, { "Content-Type": "text/plain" });
-    res.end("Page not found");
-  }
+  });
+});
+
+app.use((req, res) => {
+  res.writeHead(404, { "Content-Type": "text/plain" });
+  res.end("Page not found");
 });
 
 const port = process.env.PORT || 3000;
-server.listen(port, () => console.log(`Server running on port ${port}`));
+app.listen(port, () => console.log(`Server running on port ${port}`));

@@ -2,22 +2,36 @@
 <html>
   <head>
     <title>Lazeez Foods</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="lazeez.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="css/lazeez.css" />
   </head>
   <body>
-
- <!--Navbar-->
+    <!--Navbar-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#"><img src="imgs\Logo.png" alt="Vector logo"></a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <a class="navbar-brand" href="#"
+        ><img src="imgs\Logo.png" alt="Vector logo"
+      /></a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="#"
+              >Home <span class="sr-only">(current)</span></a
+            >
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Our story</a>
@@ -26,44 +40,93 @@
       </div>
     </nav>
 
-<!-- Opening -->
+    <!-- Opening -->
     <div class="jumbotron jumbotron-fluid custom-jumbotron">
       <div class="container">
         <h1 class="display-4">Welcome to Lazeez Foods!</h1>
-        <p class="lead">Experience the authentic taste of Indian curries in just minutes with our range of instant curry mixes.</p>
-        <a class="btn btn-primary btn-lg custom-button" href="#" role="button">Learn More</a>
+        <p class="lead">
+          Experience the authentic taste of Indian curries in just minutes with
+          our range of instant curry mixes.
+        </p>
+        <a class="btn btn-primary btn-lg custom-button" href="#" role="button"
+          >Learn More</a
+        >
       </div>
     </div>
 
-<!-- Products -->
+    <!-- Products -->
     <div class="container">
       <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4">
         <div class="col mb-4">
           <div class="card h-100">
-            <img src="https://via.placeholder.com/500x300" class="card-img-top" alt="...">
+            <img
+              src="https://via.placeholder.com/500x300"
+              class="card-img-top"
+              alt="..."
+            />
             <div class="card-body">
               <h5 class="card-title">Butter Chicken</h5>
-              <p class="card-text">Our famous butter chicken curry mix. Perfectly balanced and easy to make in just minutes!</p>
-              <a href="#" class="btn btn-primary btn-block order-button" data-toggle="modal" data-target="#orderModal" data-product="Butter Chicken">Pre-Order</a>
-              <div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="orderModalLabel" aria-hidden="true">
+              <p class="card-text">
+                Our famous butter chicken curry mix. Perfectly balanced and easy
+                to make in just minutes!
+              </p>
+              <a
+                href="#"
+                class="btn btn-primary btn-block order-button"
+                data-toggle="modal"
+                data-target="#orderModal"
+                data-product="Butter Chicken"
+                >Pre-Order</a
+              >
+              <div
+                class="modal fade"
+                id="orderModal"
+                tabindex="-1"
+                role="dialog"
+                aria-labelledby="orderModalLabel"
+                aria-hidden="true"
+              >
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="orderModalLabel">Enter your details to place your order</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      <form id="form" action="/submit-form" method="POST">
-                        <input type="hidden" name="product" value="Pre-order">
+                    <form
+                      onsubmit="submitOrder(event)"
+                      action="/submit-form"
+                      method="POST"
+                    >
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="orderModalLabel">
+                          Enter your details to place your order
+                        </h5>
+                        <button
+                          type="button"
+                          class="close"
+                          data-dismiss="modal"
+                          aria-label="Close"
+                        >
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <input type="hidden" name="product" value="Pre-order" />
                         <div class="form-group">
                           <label for="name">Name</label>
-                          <input type="text" class="form-control" id="name" name="name" required>
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="name"
+                            name="name"
+                            required
+                          />
                         </div>
                         <div class="form-group">
                           <label for="phone">Phone</label>
-                          <input type="tel" class="form-control" id="phone" name="phone" required>
+                          <input
+                            type="tel"
+                            class="form-control"
+                            id="phone"
+                            name="phone"
+                            required
+                          />
                         </div>
                         <div class="form-group">
                           <label for="item">Choose a dish:</label>
@@ -73,46 +136,100 @@
                             <option value="Dish 3">Dish 3</option>
                             <option value="Dish 4">Dish 4</option>
                           </select>
-                        </div>                        
-                      </form>                      
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-primary submit-button" data-dismiss="modal">Submit</button>
-                    </div>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button
+                          type="button"
+                          class="btn btn-secondary"
+                          data-dismiss="modal"
+                        >
+                          Close
+                        </button>
+                        <button
+                          type="submit"
+                          class="btn btn-primary submit-button"
+                        >
+                          Submit
+                        </button>
+                      </div>
+                    </form>
                   </div>
                 </div>
               </div>
             </div>
-            
           </div>
         </div>
         <div class="col mb-4">
           <div class="card h-100">
-            <img src="https://via.placeholder.com/500x300" class="card-img-top" alt="...">
+            <img
+              src="https://via.placeholder.com/500x300"
+              class="card-img-top"
+              alt="..."
+            />
             <div class="card-body">
               <h5 class="card-title">Butter Chicken</h5>
-              <p class="card-text">Our famous butter chicken curry mix. Perfectly balanced and easy to make in just minutes!</p>
-              <a href="#" class="btn btn-primary btn-block order-button" data-toggle="modal" data-target="#orderModal" data-product="Butter Chicken">Pre-Order</a>
-              <div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="orderModalLabel" aria-hidden="true">
+              <p class="card-text">
+                Our famous butter chicken curry mix. Perfectly balanced and easy
+                to make in just minutes!
+              </p>
+              <a
+                href="#"
+                class="btn btn-primary btn-block order-button"
+                data-toggle="modal"
+                data-target="#orderModal"
+                data-product="Butter Chicken"
+                >Pre-Order</a
+              >
+              <div
+                class="modal fade"
+                id="orderModal"
+                tabindex="-1"
+                role="dialog"
+                aria-labelledby="orderModalLabel"
+                aria-hidden="true"
+              >
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="orderModalLabel">Enter your details to place your order</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      <form id="form" action="/submit-form" method="POST">
-                        <input type="hidden" name="product" value="Pre-order">
+                    <form
+                      onsubmit="submitOrder()"
+                      action="/submit-form"
+                      method="POST"
+                    >
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="orderModalLabel">
+                          Enter your details to place your order
+                        </h5>
+                        <button
+                          type="button"
+                          class="close"
+                          data-dismiss="modal"
+                          aria-label="Close"
+                        >
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <input type="hidden" name="product" value="Pre-order" />
                         <div class="form-group">
                           <label for="name">Name</label>
-                          <input type="text" class="form-control" id="name" name="name" required>
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="name"
+                            name="name"
+                            required
+                          />
                         </div>
                         <div class="form-group">
                           <label for="phone">Phone</label>
-                          <input type="tel" class="form-control" id="phone" name="phone" required>
+                          <input
+                            type="tel"
+                            class="form-control"
+                            id="phone"
+                            name="phone"
+                            required
+                          />
                         </div>
                         <div class="form-group">
                           <label for="item">Choose a dish:</label>
@@ -123,12 +240,24 @@
                             <option value="Dish 4">Dish 4</option>
                           </select>
                         </div>
-                      </form>                     
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-primary submit-button" data-dismiss="modal">Submit</button>
-                    </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button
+                          type="button"
+                          class="btn btn-secondary"
+                          data-dismiss="modal"
+                        >
+                          Close
+                        </button>
+                        <button
+                          type="submit"
+                          class="btn btn-primary submit-button"
+                          data-dismiss="modal"
+                        >
+                          Submit
+                        </button>
+                      </div>
+                    </form>
                   </div>
                 </div>
               </div>
@@ -137,30 +266,74 @@
         </div>
         <div class="col mb-4">
           <div class="card h-100">
-            <img src="https://via.placeholder.com/500x300" class="card-img-top" alt="...">
+            <img
+              src="https://via.placeholder.com/500x300"
+              class="card-img-top"
+              alt="..."
+            />
             <div class="card-body">
               <h5 class="card-title">Butter Chicken</h5>
-              <p class="card-text">Our famous butter chicken curry mix. Perfectly balanced and easy to make in just minutes!</p>
-              <a href="#" class="btn btn-primary btn-block order-button" data-toggle="modal" data-target="#orderModal" data-product="Butter Chicken">Pre-Order</a>
-              <div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="orderModalLabel" aria-hidden="true">
+              <p class="card-text">
+                Our famous butter chicken curry mix. Perfectly balanced and easy
+                to make in just minutes!
+              </p>
+              <a
+                href="#"
+                class="btn btn-primary btn-block order-button"
+                data-toggle="modal"
+                data-target="#orderModal"
+                data-product="Butter Chicken"
+                >Pre-Order</a
+              >
+              <div
+                class="modal fade"
+                id="orderModal"
+                tabindex="-1"
+                role="dialog"
+                aria-labelledby="orderModalLabel"
+                aria-hidden="true"
+              >
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="orderModalLabel">Enter your details to place your order</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      <form id="form" action="/submit-form" method="POST">
-                        <input type="hidden" name="product" value="Pre-order">
+                    <form
+                      onsubmit="submitOrder()"
+                      action="/submit-form"
+                      method="POST"
+                    >
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="orderModalLabel">
+                          Enter your details to place your order
+                        </h5>
+                        <button
+                          type="button"
+                          class="close"
+                          data-dismiss="modal"
+                          aria-label="Close"
+                        >
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <input type="hidden" name="product" value="Pre-order" />
                         <div class="form-group">
                           <label for="name">Name</label>
-                          <input type="text" class="form-control" id="name" name="name" required>
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="name"
+                            name="name"
+                            required
+                          />
                         </div>
                         <div class="form-group">
                           <label for="phone">Phone</label>
-                          <input type="tel" class="form-control" id="phone" name="phone" required>
+                          <input
+                            type="tel"
+                            class="form-control"
+                            id="phone"
+                            name="phone"
+                            required
+                          />
                         </div>
                         <div class="form-group">
                           <label for="item">Choose a dish:</label>
@@ -171,73 +344,141 @@
                             <option value="Dish 4">Dish 4</option>
                           </select>
                         </div>
-                      </form>                      
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-primary submit-button" data-dismiss="modal">Submit</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>            
-          </div>
-        </div>
-        <div class="col mb-4">
-          <div class="card h-100">
-            <img src="https://via.placeholder.com/500x300" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Butter Chicken</h5>
-              <p class="card-text">Our famous butter chicken curry mix. Perfectly balanced and easy to make in just minutes!</p>
-              <a href="#" class="btn btn-primary btn-block order-button" data-toggle="modal" data-target="#orderModal" data-product="Butter Chicken">Pre-Order</a>
-              <div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="orderModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="orderModalLabel">Enter your details to place your order</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      <form id="form"/submit-form" method="POST">
-                        <input type="hidden" name="product" value="Pre-order">
-                        <div class="form-group">
-                          <label for="name">Name</label>
-                          <input type="text" class="form-control" id="name" name="name" required>
-                        </div>
-                        <div class="form-group">
-                          <label for="phone">Phone</label>
-                          <input type="tel" class="form-control" id="phone" name="phone" required>
-                        </div>
-                        <div class="form-group">
-                          <label for="item">Choose a dish:</label>
-                          <select class="form-control" id="item" name="item">
-                            <option value="Dish 1">Dish 1</option>
-                            <option value="Dish 2">Dish 2</option>
-                            <option value="Dish 3">Dish 3</option>
-                            <option value="Dish 4">Dish 4</option>
-                          </select>
-                        </div>
-                      </form>                      
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-primary submit-button" data-dismiss="modal">Submit</button>
-                    </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button
+                          type="button"
+                          class="btn btn-secondary"
+                          data-dismiss="modal"
+                        >
+                          Close
+                        </button>
+                        <button
+                          type="submit"
+                          class="btn btn-primary submit-button"
+                          data-dismiss="modal"
+                        >
+                          Submit
+                        </button>
+                      </div>
+                    </form>
                   </div>
                 </div>
               </div>
             </div>
-            
+          </div>
+        </div>
+        <div class="col mb-4">
+          <div class="card h-100">
+            <img
+              src="https://via.placeholder.com/500x300"
+              class="card-img-top"
+              alt="..."
+            />
+            <div class="card-body">
+              <h5 class="card-title">Butter Chicken</h5>
+              <p class="card-text">
+                Our famous butter chicken curry mix. Perfectly balanced and easy
+                to make in just minutes!
+              </p>
+              <a
+                href="#"
+                class="btn btn-primary btn-block order-button"
+                data-toggle="modal"
+                data-target="#orderModal"
+                data-product="Butter Chicken"
+                >Pre-Order</a
+              >
+              <div
+                class="modal fade"
+                id="orderModal"
+                tabindex="-1"
+                role="dialog"
+                aria-labelledby="orderModalLabel"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <form
+                      onsubmit="submitOrder()"
+                      action="/submit-form"
+                      method="POST"
+                    >
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="orderModalLabel">
+                          Enter your details to place your order
+                        </h5>
+                        <button
+                          type="button"
+                          class="close"
+                          data-dismiss="modal"
+                          aria-label="Close"
+                        >
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <input type="hidden" name="product" value="Pre-order" />
+                        <div class="form-group">
+                          <label for="name">Name</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="name"
+                            name="name"
+                            required
+                          />
+                        </div>
+                        <div class="form-group">
+                          <label for="phone">Phone</label>
+                          <input
+                            type="tel"
+                            class="form-control"
+                            id="phone"
+                            name="phone"
+                            required
+                          />
+                        </div>
+                        <div class="form-group">
+                          <label for="item">Choose a dish:</label>
+                          <select class="form-control" id="item" name="item">
+                            <option value="Dish 1">Dish 1</option>
+                            <option value="Dish 2">Dish 2</option>
+                            <option value="Dish 3">Dish 3</option>
+                            <option value="Dish 4">Dish 4</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button
+                          type="button"
+                          class="btn btn-secondary"
+                          data-dismiss="modal"
+                        >
+                          Close
+                        </button>
+                        <button
+                          type="submit"
+                          class="btn btn-primary submit-button"
+                          data-dismiss="modal"
+                        >
+                          Submit
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>    
+    </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="lazeez.js"></script>
+    <script src="js/lazeez.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="lazeez.js"></script>
-  </body>
+     
+  </body>
 </html>
