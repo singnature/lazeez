@@ -1,0 +1,41 @@
+.jumbotron {
+  background-color: lightgray;
+  height: 400px; /* change the height to your desired value */
+  padding: 200px 0; /* adjust the top and bottom padding to your desired value */
+  text-align: center;
+  margin-bottom: 0;
+}
+
+.jumbotron h1 {
+  font-size: 60px;
+  font-weight: bold;
+}
+
+.jumbotron p {
+  font-size: 24px;
+  margin-bottom: 30px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding-top: 30px;
+}
+
+.custom-jumbotron {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.custom-button {
+  background-color: #ff8c00;
+  border-color: #ff8c00;
+}
+
+.navbar-brand img {
+  height: 100px; /* adjust as needed */
+  padding: 5px; /* adjust as needed */
+}
+
+
